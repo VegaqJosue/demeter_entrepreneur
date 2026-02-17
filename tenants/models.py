@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from core.current_user import get_current_user
+from django.core.validators import FileExtensionValidator
 
 class Tenant(models.Model):
 
@@ -22,7 +23,12 @@ class Tenant(models.Model):
         blank=True
     )
 
-    logo_url = models.URLField(max_length=255)
+    logo_url = models.ImageField(
+        upload_to="tenants/logos/",
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(["jpg","jpeg"])]
+    )
 
     default_currency = models.CharField(
         max_length=3,

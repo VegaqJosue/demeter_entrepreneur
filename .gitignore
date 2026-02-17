@@ -1,0 +1,103 @@
+############################
+# Python
+############################
+__pycache__/
+*.py[cod]
+*$py.class
+
+############################
+# Virtual environments
+############################
+venv/
+.env/
+.env
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+############################
+# Django
+############################
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+############################
+# Static & Media (collected/generated)
+############################
+staticfiles/
+media/
+
+############################
+# Secrets / environment
+############################
+.env
+.env.*
+*.env
+secrets.json
+*.key
+*.pem
+
+############################
+# IDE / Editors
+############################
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+############################
+# OS Files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Testing / Coverage
+############################
+htmlcov/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+
+############################
+# Distribution / packaging
+############################
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+############################
+# Logs
+############################
+logs/
+*.log
+
+############################
+# Docker
+############################
+*.pid
+*.seed
+*.pid.lock
+
+############################
+# MySQL dumps
+############################
+*.sql
+
+############################
+# Node (if frontend exists)
+############################
+node_modules/
+npm-debug.log
+yarn-error.log

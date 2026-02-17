@@ -20,7 +20,7 @@ def tenant_create(request):
         return redirect("home")
 
     if request.method == "POST":
-        form = Tenantform(request.POST)
+        form = Tenantform(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("tenant_list")
@@ -36,7 +36,7 @@ def tenant_update(request,pk):
     tenant = get_object_or_404(Tenant, pk=pk)
 
     if request.method == "POST":
-        form = Tenantform(request.POST, instance=tenant)
+        form = Tenantform(request.POST, request.FILES, instance=tenant)
         if form.is_valid():
             form.save()
             return redirect("tenant_list")
