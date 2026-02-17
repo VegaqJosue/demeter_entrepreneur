@@ -24,4 +24,5 @@ def root_redirect(request):
 urlpatterns = [
     path('', root_redirect),
     path('', include('accounts.urls')),
+    path('tenants/', include("tenants.urls")),
 ]

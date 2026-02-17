@@ -1,0 +1,13 @@
+<h2>Tenants</h2>
+
+<a href="{% url 'tenant_create' %}">Create</a>
+
+<ul>
+{% for t in tenants %}
+    <li>
+        {{ t.comercial_name }}
+        <a href="{% url 'tenant_update' t.id %}">Edit</a>
+        <a href="{% url 'tenant_delete' t.id %}">Delete</a>
+    </li>
+{% endfor %}
+</ul>

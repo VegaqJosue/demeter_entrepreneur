@@ -6,7 +6,7 @@ class CurrentUserMiddleware:
         self.get_response = get_response
     
     def __call__(self, request):
-        set_current_user(getattr(request, "user", Noce))
+        set_current_user(getattr(request, "user", None))
         response = self.get_response(request)
         return response
 
@@ -23,7 +23,7 @@ class TenantMiddleware:
 
         if user and user.is_authenticated:
             if user.user_scope == "TENANT":
-                request.tenant = user.tenat
+                request.tenant = user.tenant
             elif user.user_scope == "PLATFORM":
                 request.tenant = None
         

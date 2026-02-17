@@ -58,7 +58,7 @@ class User(AbstractUser):
     user_scope = models.CharField(
         max_length=20,
         choices=USER_SCOPE_CHOICES,
-        default='TENANT',
+        default='PLATFORM',
     )
 
     tenant = models.ForeignKey(
