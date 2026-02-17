@@ -61,6 +61,14 @@ class User(AbstractUser):
         default='TENANT',
     )
 
+    tenant = models.ForeignKey(
+        'tenants.Tenant',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="users"
+    )
+
     # Normalized names
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100, null=True, blank=True)

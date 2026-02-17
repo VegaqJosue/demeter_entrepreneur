@@ -1,0 +1,71 @@
+import uuid
+from django.db import models
+
+class Tenant(models.Model):
+
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
+    legal_name = models.CharField(
+        max_length=150,
+        null=False,
+        blank=False
+    )
+
+    comercial_name = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    logo_url = models.URLField(max_length=255)
+
+    default_currency = models.CharField(
+        max_length=3,
+        default="USD",
+        null=False,
+        blank=False
+    )
+
+    timezone = models.CharField(
+        max_length=100,
+        default='UTC',
+        null=False,
+        blank=False
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    created_by = models.ForeignKey(
+        'accounts.User',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='tenants_created'
+    )
+
+    updated_at = models.DateField(auto_now=True)
+
+    updated_by = models.ForeignKey(
+        'accounts.User',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='tenants_updated'
+    )
+
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "tenants"
+        indexes = [
+            models.Index(fields=["active"], name="idx_tenants_active")
+        ]
+        verbose_name = "Tenant"
+        verbose_name_plural = "Tenants"
+    
+    def __str__(self):
+        return self.comercial_name
