@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from core.current_user import get_current_user
 
 class Tenant(models.Model):
 
@@ -69,3 +70,11 @@ class Tenant(models.Model):
     
     def __str__(self):
         return self.comercial_name
+    
+    def save(self, *args, **kwargs):
+        user = get_current_user()
+        if user and not self.created_by:
+            self.created_by = user
+        if user:
+            self.updated_by = user
+        super().save(*args, **kwargs)
