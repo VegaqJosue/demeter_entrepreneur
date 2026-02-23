@@ -8,7 +8,6 @@ from .forms import LoginForm
 
 
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('home')
 

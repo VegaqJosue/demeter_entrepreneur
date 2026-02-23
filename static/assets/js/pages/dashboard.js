@@ -1,0 +1,10 @@
+function showToast(){let t=document.getElementById("toast-container"),e=(t||((t=document.createElement("div")).id="toast-container",t.className="toast-container position-fixed top-0 end-0 p-3",t.style.zIndex=1100,document.body.appendChild(t)),document.createElement("div"));e.className="toast text-bg-primary border-0 fade",e.setAttribute("role","alert"),e.setAttribute("aria-live","assertive"),e.setAttribute("aria-atomic","true"),e.innerHTML=`
+    <div class="toast-header bg-white bg-opacity-10 text-white border-0">
+      <strong class="me-auto text-white">New Updates!</strong>
+      <small>Now</small>
+      <button type="button" class="ms-2 btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Welcome to <strong>HOMER</strong> Bootstrap 5 Admin Dashboard Template.
+    </div>
+  `,t.appendChild(e),new bootstrap.Toast(e,{delay:5e3}).show(),e.addEventListener("hidden.bs.toast",()=>{e.remove()})}setTimeout(showToast,2e3);let activeUsersChart=new CustomChartJs({selector:"#activeUsersChart",options:()=>({type:"line",data:{labels:["0","1","2","3","4","5","6","7"],datasets:[{label:"Current Month",data:[50,42,38,35,40,50,48,47],fill:!0,borderColor:ins("chart-secondary"),backgroundColor:ins("chart-secondary-rgb",.2),tension:.4,pointRadius:0,borderWidth:1},{label:"Past Month",data:[60,55,50,45,50,58,55,53],fill:!0,borderColor:ins("chart-gray"),backgroundColor:ins("chart-gray-rgb",.2),tension:.4,pointRadius:0,borderWidth:1}]}})}),incomeChart=new CustomChartJs({selector:"#incomeChart",options:()=>({type:"line",data:{labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],datasets:[{data:[0,15,10,20,18,25,30],backgroundColor:ins("chart-primary-rgb",.6),borderColor:ins("chart-primary"),tension:.4,fill:!0,pointRadius:0,borderWidth:2}]},options:{responsive:!0,maintainAspectRatio:!1,plugins:{legend:{display:!1},tooltip:{enabled:!1}},scales:{x:{display:!1,grid:{display:!1}},y:{display:!1,grid:{display:!1}}}}})});

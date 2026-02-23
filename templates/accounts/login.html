@@ -1,7 +1,106 @@
-<h2>Login</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+<head>
+    <meta charset="utf-8">
+    <title>DEMETER | Entrepeneur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="admin dashboard template on WrapBootstrap. Perfect for building CRM, CMS, project management tools, and custom web apps with clean UI, responsive design, and powerful features.">
+    <meta name="keywords" content="HOMER, Admin dashboard, WrapBootstrap, HTML template, Bootstrap admin, CRM template, CMS template, responsive admin, web app UI, admin theme, best admin template">
+    <meta name="author" content="WebAppLayers">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'assets/js/config.js' %}"></script>
+
+    <!-- Vendor css -->
+    <link href="{% static 'assets/css/vendors.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="auth-box overflow-hidden align-items-center d-flex">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-4 col-md-6 col-sm-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="auth-brand text-center mb-4">
+                                <a href="#" class="logo-dark">
+                                    <img src="{% static 'assets/images/logo-black.png' %}" alt="dark logo" height="32">
+                                </a>
+                                <a href="index.html" class="logo-light">
+                                    <img src="{% static 'assets/images/logo.png' %}" alt="logo" height="32">
+                                </a>
+                                <h4 class="fw-bold mt-3">Welcome to Demeter</h4>
+                                <p class="text-muted w-lg-75 mx-auto">Let’s get you signed in. Enter your username and password to continue.</p>
+                            </div>
+            
+                            <div class="">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {% if form.non_field_errors  %}
+                                        <div class="alert alert-danger mb-3">
+                                            {{ form.non_field_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="mb-3">
+                                        <label for="userEmail" class="form-label">Username<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            {{ form.email }}
+                                        </div>
+                                        {% if form.email.errors %}
+                                            <div class="text-danger small">{{ form.email.errors }}</div>
+                                        {% endif %}
+                                    </div>
+            
+                                    <div class="mb-3">
+                                        <label for="userPassword" class="form-label">Password <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            {{ form.password }}
+                                        </div>
+                                        {% if form.password.errors %}
+                                            <div class="text-danger small">{{ form.password.errors }}</div>
+                                        {% endif %}
+                                    </div>
+            
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input form-check-input-light fs-14" type="checkbox" id="rememberMe">
+                                            <label class="form-check-label" for="rememberMe">Keep me signed in</label>
+                                        </div>
+                                        <a href="auth-reset-pass.html" class="text-decoration-underline link-offset-3 text-muted">Forgot Password?</a>
+                                    </div>
+            
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary fw-semibold py-2">Sign In</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+        
+                        <p class="text-center text-muted mt-4 mb-0">
+                            © 2015 - <script>document.write(new Date().getFullYear())</script> DEMETER — by <span class="fw-semibold">ChockCode</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- end auth-fluid-->
+    <!-- Vendor js -->
+    <script src="{% static 'assets/js/vendors.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+
+</html>

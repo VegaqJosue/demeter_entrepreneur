@@ -2,8 +2,18 @@ from django import forms
 from django.contrib.auth import authenticate
 
 class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            "class" : "form-control",
+            "placeholder": "user@email.com"
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            "class": "form-control",
+            "placeholder": "password"
+        })
+    )
 
     def clean(self):
         cleaned_data = super().clean()
