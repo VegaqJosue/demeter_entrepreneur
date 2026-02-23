@@ -27,6 +27,7 @@ urlpatterns = [
     path('', root_redirect),
     path('', include('accounts.urls')),
     path('tenants/', include("tenants.urls")),
+    path('employees/clients/', include('employees.urls'))
 ]
 
 if settings.DEBUG:
