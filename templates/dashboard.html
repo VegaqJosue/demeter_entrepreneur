@@ -48,12 +48,37 @@
 
                 <!--- Sidenav Menu -->
                 <ul class="side-nav">
-
                     <li class="side-nav-item">
                         <a href="index.html" class="side-nav-link">
                             <span class="menu-icon"><i data-lucide="layout-dashboard"></i></span>
                             <span class="menu-text" data-lang="dashboard">Dashboard</span>
                         </a>
+                    </li>
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false" aria-controls="sidebarInvoice" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="settings-2"></i></span>
+                            <span class="menu-text" data-lang="invoice"> Managment</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse {% if request.resolver_match.app_name == 'employees' %}show{% endif %}" id="sidebarInvoice">
+                            <ul class="sub-menu">
+                                <li class="side-nav-item {% if request.resolver_match.app_name == 'employees' %}active{% endif %}">
+                                    <a href="{% url 'employee_list' %}" class="side-nav-link {% if request.resolver_match.app_name == 'employees' %}active{% endif %}">
+                                        <span class="menu-text" data-lang="invoices">Employees</span>
+                                    </a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="invoice-details.html" class="side-nav-link">
+                                        <span class="menu-text" data-lang="invoice-details">Single Invoice</span>
+                                    </a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="invoice-create.html" class="side-nav-link">
+                                        <span class="menu-text" data-lang="invoice-create">New Invoice</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>

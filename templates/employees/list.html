@@ -45,8 +45,12 @@
                             <td>{{ employee.document_id }}</td>
                             <td>$ {{ employee.credit_limit }}</td>
                             <td>
-                                <a href="{% url 'employee_update' employee.id %}">Edit</a>
-                                <a href="{% url 'employee_delete' employee.id %}">Delete</a>
+                            <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning btn-icon">
+                                        <i class="ti ti-edit fs-xl"></i>
+                            </a>
+                            <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger btn-icon">
+                                        <i class="ti ti-trash fs-xl"></i>
+                            </a>
                             </td>
                             {% endfor %}
                         </tbody>
