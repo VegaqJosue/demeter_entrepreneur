@@ -1,12 +1,79 @@
-<h2>Employees</h2>
-<a href="{% url 'employee_create' %}">Create</a>
+{% extends "dashboard.html" %}
+{% load static %}
 
-<ul>
-{% for e in employees %}
-    <li>
-        {{ e.employee_code }} — {{ e.first_name }} {{ e.first_surname }}
-        <a href="{% url 'employee_update' e.id %}">Edit</a>
-        <a href="{% url 'employee_delete' e.id %}">Delete</a>
-    </li>
-{% endfor %}
-</ul>
+{% block custom_css %}
+    <link href="{% static 'assets/plugins/datatables/responsive.bootstrap5.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block module_name %}
+    Employees
+{% endblock %}
+
+{% block module_description %} 
+    This is a list of the employees that are your available clients.
+{% endblock %}
+
+{% block module_content %}
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header justify-content-between">
+                    <h5 class="card-title"> Basic DataTable </h5>
+                    <a href="{% url 'employee_create' %}" class="icon-link icon-link-hover link-primary fw-semibold">Create new employee <i class="ti ti-arrow-right bi align-middle fs-lg"></i></a>
+                </div>
+
+                <div class="card-body">
+                    <table data-tables="list-content-model" class="table table-striped dt-responsive align-middle mb-0">
+                        <thead class="thead-sm text-uppercase fs-xxs">
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>Document Name</th>
+                                <th>Document ID</th>
+                                <th>Credit Limit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for employee in employees %}
+                            <td>{{ employee.employee_code }}</td>
+                            <td>{{ employee.first_name }} {{ employee.second_name }} {{ employee.third_name }}</td>
+                            <td>{{ employee.first_surname }} {{ employee.second_surname }}</td>
+                            <td>{{ employee.document_name }}</td>
+                            <td>{{ employee.document_id }}</td>
+                            <td>$ {{ employee.credit_limit }}</td>
+                            <td>
+                                <a href="{% url 'employee_update' employee.id %}">Edit</a>
+                                <a href="{% url 'employee_delete' employee.id %}">Delete</a>
+                            </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+
+    <script src="{% static 'assets/plugins/datatables/dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatables/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatables/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatables/responsive.bootstrap5.min.js' %}"></script>
+    <script>
+        new DataTable('[data-tables="list-content-model"]', {
+            language: {
+                paginate: {
+                    first: '<i class="ti ti-chevrons-left"></i>',   // Tabler First
+                    previous: '<i class="ti ti-chevron-left"></i>', // Tabler Prev
+                    next: '<i class="ti ti-chevron-right"></i>',    // Tabler Next
+                    last: '<i class="ti ti-chevrons-right"></i>'    // Tabler Last
+                }
+            }
+        });
+
+    </script>
+{% endblock %}

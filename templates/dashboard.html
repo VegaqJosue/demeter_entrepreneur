@@ -11,15 +11,14 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
-
     <!-- Theme Config Js -->
     <script src="{% static 'assets/js/config.js' %}"></script>
-
     <!-- Vendor css -->
     <link href="{% static 'assets/css/vendors.min.css' %}" rel="stylesheet" type="text/css">
-
     <!-- App css -->
     <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css">
+
+    {% block custom_css %}{% endblock %}
 </head>
 
 <body>
@@ -215,10 +214,10 @@
                                 </a>
 
                                 <!-- Logout -->
-                                <a href="javascript:void(0);" class="dropdown-item text-danger fw-semibold">
-                                    <i class="ti ti-logout-2 me-2 fs-17 align-middle"></i>
-                                    <span class="align-middle">Log Out</span>
-                                </a>
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item text-danger fw-semibold" type="submit"><i class="ti ti-logout-2 me-2 fs-17 align-middle"></i>Logout</button>
+                                </form>
                             </div>
 
                         </div>
@@ -237,26 +236,16 @@
         <div class="content-page">
 
             <div class="container-fluid">
-                
-                
                 <div class="page-title-head d-flex align-items-center" id="page-head-box">
                     <div class="flex-grow-1">
-                        <h4 class="fs-lg fw-bold mb-2 lh-1">Starter</h4>
-                        <p class="text-muted mb-0 fs-xs lh-1">Built for Speed. Designed for Control.</p>
-                    </div>
-
-                    <div class="text-end">
-                        <button type="button" class="btn btn-link fs-16 mb-1 p-0" id="btn-page-head"><i data-lucide="square-arrow-up-right" class="btn-page-head-icon"></i></button>
-                        <ol class="breadcrumb m-0 py-0 fs-xs">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Homer</a></li>
-                            
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                            
-                            <li class="breadcrumb-item active">Starter</li>
-                        </ol>
+                        <h4 class="fs-lg fw-bold mb-2 lh-1">
+                            {% block module_name %}{% endblock %}
+                        </h4>
+                        <p class="text-muted mb-0 fs-xs lh-1">{% block module_description %} {% endblock %}</p>
                     </div>
                 </div>
-                
+
+                {% block module_content %} {% endblock %}
 
             </div>
             <!-- container -->
@@ -574,6 +563,8 @@
 
     <!-- App js -->
     <script src="{% static 'assets/js/app.js' %}"></script>
+
+    {% block custom_js %}{% endblock %}
 
 </body>
 
