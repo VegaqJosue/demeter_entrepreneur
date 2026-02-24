@@ -1,5 +1,586 @@
-Login exitoso
-<form method="post" action="{% url 'logout' %}">
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DEMETER | Entrepeneur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Demeter is sales managment tool for entrepeneurs">
+    <meta name="keywords" content="">
+    <meta name="author" content="ChockCode">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'assets/js/config.js' %}"></script>
+
+    <!-- Vendor css -->
+    <link href="{% static 'assets/css/vendors.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!-- Begin page -->
+    <div class="wrapper">
+
+        
+        <!-- Sidenav Menu Start -->
+        <div class="sidenav-menu">
+            <div class="scrollbar" data-simplebar>
+
+                <!-- User -->
+                <div class="sidenav-user text-center text-nowrap">
+                    <a href="pages-profile.html" class="sidenav-user-name text-center">
+                        <img src="{% static 'assets/images/users/user-10.jpg' %}" alt="user-image" class="rounded-circle d-block mb-2 avatar-img-size fs-60 mx-auto">
+                        <span class="fw-bold d-block">{{ user.first_name }} {{ user.first_surname }}</span>
+                        <span class="fs-11 text-muted d-block" data-lang="user-role"> {{ user.email }} </span>
+                    </a>
+
+                    <div class="sidenav-user-chart px-3 my-3">
+                        <canvas id="sidenavUserchart"></canvas>
+                    </div>
+
+                    <h4>$<span data-target="100.20">0</span></h4>
+                    <p class="text-muted fs-xxs mb-0">Your debts since <br> last payslip.</p>
+                </div>
+
+                <!--- Sidenav Menu -->
+                <ul class="side-nav">
+
+                    <li class="side-nav-item">
+                        <a href="index.html" class="side-nav-link">
+                            <span class="menu-icon"><i data-lucide="layout-dashboard"></i></span>
+                            <span class="menu-text" data-lang="dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Sidenav Menu End -->
+
+        <!-- Topbar Start -->
+        <header class="app-topbar">
+            <div class="container-fluid topbar-menu">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <!-- Topbar Brand Logo -->
+                    <div class="logo-topbar text-center">
+                        <!-- Logo light -->
+                        <a href="index.html" class="text-dark">
+                            <img src="{% static 'assets/images/demeterone.png' %}" alt="dark logo" height="32">
+                        </a>
+                    </div>
+
+                    <div class="d-lg-none d-flex mx-1">
+                        <a href="index.html">
+                            <img src="assets/images/logo-sm.png" height="28" alt="Logo">
+                        </a>
+                    </div>
+
+                    <!-- Sidebar Hover Menu Toggle Button -->
+                    <button class="button-collapse-toggle">
+                        <i data-lucide="menu" class="fs-22 align-middle"></i>
+                    </button>
+                </div> <!-- .d-flex-->
+
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Language Dropdown -->
+                    <div class="topbar-item">
+                        <div class="dropdown">
+                            <button class="topbar-link fw-semibold" data-bs-toggle="dropdown" data-bs-offset="0,19" type="button" aria-haspopup="false" aria-expanded="false">
+                                <img src="{% static 'assets/images/flags/us.svg' %}" alt="user-image" class="w-100 rounded me-2" height="18" id="selected-language-image">
+                                <span id="selected-language-code"> EN </span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="javascript:void(0);" class="dropdown-item" data-translator-lang="en" title="English">
+                                    <img src="{% static 'assets/images/flags/us.svg' %}" alt="English" class="me-1 rounded" height="18" data-translator-image>
+                                    <span class="align-middle">English</span>
+                                </a>
+                                <a href="javascript:void(0);" class="dropdown-item" data-translator-lang="es" title="Spanish">
+                                    <img src="{% static 'assets/images/flags/es.svg' %}" alt="Spanish" class="me-1 rounded" height="18" data-translator-image>
+                                    <span class="align-middle">Español</span>
+                                </a>
+                            </div> <!-- end dropdown-menu-->
+                        </div> <!-- end dropdown-->
+                    </div> <!-- end topbar item-->
+
+                    <!-- Notification Dropdown -->
+                    <div class="topbar-item">
+                        <div class="dropdown">
+                            <button class="topbar-link dropdown-toggle drop-arrow-none" data-bs-toggle="dropdown" data-bs-offset="0,19" type="button" data-bs-auto-close="outside" aria-haspopup="false" aria-expanded="false">
+                                <i data-lucide="bell" class="fs-xxl"></i>
+                                <span class="badge badge-square text-bg-success topbar-badge">1</span>
+                            </button>
+
+                            <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-lg">
+                                <div class="px-3 py-2 border-bottom">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h6 class="m-0 fs-md fw-semibold">Notifications</h6>
+                                        </div>
+                                        <div class="col text-end">
+                                            <a href="#!" class="badge text-bg-light badge-label py-1">9 Alerts</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="max-height: 300px;" data-simplebar>
+                                    <!-- item 1 -->
+                                    <div class="dropdown-item notification-item py-2 text-wrap" id="notification-1">
+                                        <span class="d-flex gap-2">
+                                            <span class="avatar-md flex-shrink-0">
+                                                <span class="avatar-title bg-primary-subtle text-primary rounded-circle fs-22">
+                                                    <i data-lucide="server-crash" class="fs-xl fill-primary"></i>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1 text-muted">
+                                                <span class="fw-medium text-body">Critical alert: Server crash detected</span>
+                                                <br>
+                                                <span class="fs-xs">30 minutes ago</span>
+                                            </span>
+                                            <button type="button" class="flex-shrink-0 text-muted btn btn-link p-0" data-dismissible="#notification-1">
+                                                <i data-lucide="circle-x" class="fs-xxl"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div> <!-- end dropdown-->
+
+                                <!-- All-->
+                                <a href="javascript:void(0);" class="dropdown-item text-center text-reset text-decoration-underline link-offset-2 fw-bold notify-item border-top border-light py-2">
+                                    View All Notifications
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button Trigger Customizer Offcanvas -->
+                    {% comment %} <div class="topbar-item d-none d-sm-flex">
+                        <button class="topbar-link" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" type="button">
+                            <i data-lucide="settings" class="fs-xxl"></i>
+                        </button>
+                    </div> {% endcomment %}
+
+                    <!-- User Dropdown -->
+                    <div class="topbar-item nav-user">
+                        <div class="dropdown">
+                            <a class="topbar-link dropdown-toggle drop-arrow-none px-2" data-bs-toggle="dropdown" data-bs-offset="0,13" href="#!" aria-haspopup="false" aria-expanded="false">
+                                <img src="{% static 'assets/images/users/user-10.jpg' %}" width="32" class="rounded-circle me-lg-2 d-flex" alt="user-image">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- Header -->
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome back!</h6>
+                                </div>
+
+                                <!-- My Profile -->
+                                <a href="pages-profile.html" class="dropdown-item">
+                                    <i class="ti ti-user-circle me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Profile</span>
+                                </a>
+
+                                <!-- Notifications -->
+                                <a href="javascript:void(0);" class="dropdown-item">
+                                    <i class="ti ti-bell-ringing me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Notifications</span>
+                                </a>
+
+                                <!-- Wallet -->
+                                <a href="javascript:void(0);" class="dropdown-item">
+                                    <i class="ti ti-credit-card me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Balance: <span class="fw-semibold">$985.25</span></span>
+                                </a>
+
+                                <!-- Settings -->
+                                <a href="javascript:void(0);" class="dropdown-item">
+                                    <i class="ti ti-settings-2 me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Account Settings</span>
+                                </a>
+
+                                <!-- Support -->
+                                <a href="javascript:void(0);" class="dropdown-item">
+                                    <i class="ti ti-headset me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Support Center</span>
+                                </a>
+
+                                <!-- Divider -->
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Lock -->
+                                <a href="auth-lock-screen.html" class="dropdown-item">
+                                    <i class="ti ti-lock me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Lock Screen</span>
+                                </a>
+
+                                <!-- Logout -->
+                                <a href="javascript:void(0);" class="dropdown-item text-danger fw-semibold">
+                                    <i class="ti ti-logout-2 me-2 fs-17 align-middle"></i>
+                                    <span class="align-middle">Log Out</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Topbar End -->
+
+        
+
+        <!-- ============================================================== -->
+        <!-- Start Main Content -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+
+            <div class="container-fluid">
+                
+                
+                <div class="page-title-head d-flex align-items-center" id="page-head-box">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-lg fw-bold mb-2 lh-1">Starter</h4>
+                        <p class="text-muted mb-0 fs-xs lh-1">Built for Speed. Designed for Control.</p>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-link fs-16 mb-1 p-0" id="btn-page-head"><i data-lucide="square-arrow-up-right" class="btn-page-head-icon"></i></button>
+                        <ol class="breadcrumb m-0 py-0 fs-xs">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Homer</a></li>
+                            
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                            
+                            <li class="breadcrumb-item active">Starter</li>
+                        </ol>
+                    </div>
+                </div>
+                
+
+            </div>
+            <!-- container -->
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start">
+                            © 2026 - <script>document.write(new Date().getFullYear())</script> DEMETER By <span class="fw-semibold">ChockCode</span> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-end d-none d-md-block">
+                                10GB of <span class="fw-bold">250GB</span> Free.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End of Main Content -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- END wrapper -->
+
+    <!-- Theme Settings -->
+    <div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="theme-settings-offcanvas">
+        <div class="d-flex justify-content-between text-bg-primary gap-2 p-3" style="background-image: url(assets/images/user-bg-pattern.png);">
+            <div>
+                <h5 class="mb-1 fw-bold text-white text-uppercase">Admin Customizer</h5>
+                <p class="text-white text-opacity-75 fst-italic fw-medium mb-0">Easily configure layout, styles, and preferences for your admin interface.</p>
+            </div>
+
+            <div class="flex-grow-0">
+                <button type="button" class="d-block btn btn-sm bg-white bg-opacity-25 text-white rounded-circle btn-icon" data-bs-dismiss="offcanvas"><i class="ti ti-x fs-lg"></i></button>
+            </div>
+        </div>
+
+        <div class="offcanvas-body p-0 h-100" data-simplebar>
+
+            <div class="p-3 border-bottom border-dashed">
+                <h5 class="mb-3 fw-bold">Skins</h5>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-one" value="default">
+                                <label class="form-check-label w-100" for="skin-one">
+                                    <span class="d-flex" data-skin="default">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Default</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-two" value="two">
+                                <label class="form-check-label w-100" for="skin-two">
+                                    <span class="d-flex" data-skin="two">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Two</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-three" value="three">
+                                <label class="form-check-label w-100" for="skin-three">
+                                    <span class="d-flex" data-skin="three">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Three</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-four" value="four">
+                                <label class="form-check-label w-100" for="skin-four">
+                                    <span class="d-flex" data-skin="four">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Four</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-five" value="five">
+                                <label class="form-check-label w-100" for="skin-five">
+                                    <span class="d-flex" data-skin="five">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Five</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-skin" id="skin-six" value="six">
+                                <label class="form-check-label w-100" for="skin-six">
+                                    <span class="d-flex" data-skin="six">
+                                        <span style="background-color: var(--ins-chart-primary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-secondary)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-gray)" class="avatar-xl"></span>
+                                        <span style="background-color: var(--ins-chart-dark)" class="avatar-xl"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="text-center text-muted mt-2 mb-0">Six</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom border-dashed">
+                <h5 class="mb-3 fw-bold">Color Scheme</h5>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-check card-radio">
+                            <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-color-light" value="light">
+                            <label class="form-check-label p-0 w-100" for="layout-color-light">
+                                <img src="assets/images/layouts/light.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="text-center text-muted mt-2 mb-0">Light</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check card-radio">
+                            <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-color-dark" value="dark">
+                            <label class="form-check-label p-0 w-100" for="layout-color-dark">
+                                <img src="assets/images/layouts/dark.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="text-center text-muted mt-2 mb-0">Dark</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom border-dashed">
+                <h5 class="mb-3 fw-bold">Topbar Color</h5>
+
+                <div class="row g-3">
+                    <div class="col-4">
+                        <div class="form-check card-radio">
+                            <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-light" value="light">
+                            <label class="form-check-label p-0 w-100" for="topbar-color-light">
+                                <img src="assets/images/layouts/topbar-light.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="text-center text-muted mt-2 mb-0">Light</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check card-radio">
+                            <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-dark" value="dark">
+                            <label class="form-check-label p-0 w-100" for="topbar-color-dark">
+                                <img src="assets/images/layouts/topbar-dark.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="fs-sm text-center text-muted mt-2 mb-0">Dark</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check card-radio">
+                            <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-gray" value="gray">
+                            <label class="form-check-label p-0 w-100" for="topbar-color-gray">
+                                <img src="assets/images/layouts/topbar-gray.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="fs-sm text-center text-muted mt-2 mb-0">Gray</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom border-dashed">
+                <h5 class="mb-3 fw-bold">Sidenav Color</h5>
+
+                <div class="row g-3">
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-color" id="sidenav-color-light" value="light">
+                            <label class="form-check-label p-0 w-100" for="sidenav-color-light">
+                                <img src="assets/images/layouts/light.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="fs-sm text-center text-muted mt-2 mb-0">Light</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-color" id="sidenav-color-dark" value="dark">
+                            <label class="form-check-label p-0 w-100" for="sidenav-color-dark">
+                                <img src="assets/images/layouts/sidenav-dark.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="fs-sm text-center text-muted mt-2 mb-0">Dark</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-color" id="sidenav-color-gray" value="gray">
+                            <label class="form-check-label p-0 w-100" for="sidenav-color-gray">
+                                <img src="assets/images/layouts/sidenav-gray.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="fs-sm text-center text-muted mt-2 mb-0">Gray</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom border-dashed">
+                <h5 class="mb-3 fw-bold">Sidebar Size</h5>
+
+                <div class="row g-3">
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-small-hover-active" value="default">
+                            <label class="form-check-label p-0 w-100" for="sidenav-size-small-hover-active">
+                                <img src="assets/images/layouts/light.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="mb-0 fs-base text-center text-muted mt-2">Default</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-small-hover" value="collapse">
+                            <label class="form-check-label p-0 w-100" for="sidenav-size-small-hover">
+                                <img src="assets/images/layouts/sidebar-condensed.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="mb-0 text-center text-muted mt-2">Collapse</h5>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-check sidebar-setting card-radio">
+                            <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-offcanvas" value="offcanvas">
+                            <label class="form-check-label p-0 w-100" for="sidenav-size-offcanvas">
+                                <img src="assets/images/layouts/sidebar-offcanvas.svg" alt="layout-img" class="img-fluid">
+                            </label>
+                        </div>
+                        <h5 class="mb-0 text-center text-muted mt-2">Offcanvas</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-bottom border-dashed">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0">Layout Position</h5>
+
+                    <div class="btn-group radio" role="group">
+                        <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-fixed" value="fixed">
+                        <label class="btn btn-sm btn-soft-primary w-sm" for="layout-position-fixed">Fixed</label>
+
+                        <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-scrollable" value="scrollable">
+                        <label class="btn btn-sm btn-soft-primary w-sm ms-0" for="layout-position-scrollable">Scrollable</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><label class="fw-bold m-0" for="sidebaruser-check">Sidebar User Info</label></h5>
+
+                    <div class="form-check form-switch fs-lg">
+                        <input type="checkbox" class="form-check-input" name="sidebar-user" id="sidebaruser-check">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor js -->
+    <script src="{% static 'assets/js/vendors.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+
+</html>
+
+{% comment %} <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Logout</button>
 </form>
+ {% endcomment %}
