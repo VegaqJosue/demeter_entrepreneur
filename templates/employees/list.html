@@ -19,7 +19,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header justify-content-between">
-                    <h5 class="card-title"> Basic DataTable </h5>
+                    <h5 class="card-title"></h5>
                     <a href="{% url 'employee_create' %}" class="icon-link icon-link-hover link-primary fw-semibold">Create new employee <i class="ti ti-arrow-right bi align-middle fs-lg"></i></a>
                 </div>
 
@@ -38,20 +38,22 @@
                         </thead>
                         <tbody>
                             {% for employee in employees %}
-                            <td>{{ employee.employee_code }}</td>
-                            <td>{{ employee.first_name }} {{ employee.second_name }} {{ employee.third_name }}</td>
-                            <td>{{ employee.first_surname }} {{ employee.second_surname }}</td>
-                            <td>{{ employee.document_name }}</td>
-                            <td>{{ employee.document_id }}</td>
-                            <td>$ {{ employee.credit_limit }}</td>
-                            <td>
-                            <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning btn-icon">
-                                        <i class="ti ti-edit fs-xl"></i>
-                            </a>
-                            <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger btn-icon">
-                                        <i class="ti ti-trash fs-xl"></i>
-                            </a>
-                            </td>
+                            <tr>
+                                <td>{{ employee.employee_code }}</td>
+                                <td>{{ employee.first_name }} {{ employee.second_name }} {{ employee.third_name }}</td>
+                                <td>{{ employee.first_surname }} {{ employee.second_surname }}</td>
+                                <td>{{ employee.document_name }}</td>
+                                <td>{{ employee.document_id }}</td>
+                                <td>$ {{ employee.credit_limit }}</td>
+                                <td>
+                                <a href="{% url 'employee_update' employee.id %}" class="btn btn-warning btn-icon">
+                                            <i class="ti ti-edit fs-xl"></i>
+                                </a>
+                                <a href="{% url 'employee_delete' employee.id %}" class="btn btn-danger btn-icon">
+                                            <i class="ti ti-trash fs-xl"></i>
+                                </a>
+                                </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>

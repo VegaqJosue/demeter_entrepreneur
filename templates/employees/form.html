@@ -1,7 +1,106 @@
-<h2>Employee</h2>
+{% extends "dashboard.html" %}
+{% load static %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+{% block module_name %}
+Employees
+{% endblock %}
+
+{% block module_description %}
+This forms allows you to update or add new employees to DEMETER
+{% endblock %}
+
+{% block module_content %}
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h5 class="card-title"></h5>
+                <a href="{% url 'employee_list' %}"
+                    class="icon-link icon-link-hover link-secondary link-underline-secondarlink-secondary link-underline-opacity-25 fw-semibold">View
+                    employees <i class="ti ti-arrow-right bi align-middle fs-lg"></i></a>
+            </div>
+
+            <div class="card-body">
+                <form class="row g-3 needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <label for="employeeCode" class="form-label">Employee code</label>
+                        {{ form.employee_code }}
+                        <div class="valid-feedback">
+                            {{ form.employee_code.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fstName" class="form-label">First name</label>
+                        {{ form.first_name }}
+                        <div class="valid-feedback">
+                            {{ form.first_name.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ndName" class="form-label">Second name</label>
+                        {{ form.second_name }}
+                        <div class="valid-feedback">
+                            {{ form.second_name.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="thirdName" class="form-label">Third name</label>
+                        {{ form.third_name }}
+                        <div class="valid-feedback">
+                            {{ form.third_name.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fstSurname" class="form-label">First surname</label>
+                        {{ form.first_surname }}
+                        <div class="valid-feedback">
+                            {{ form.first_surname.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ndSurname" class="form-label">Second surname</label>
+                        {{ form.second_surname }}
+                        <div class="valid-feedback">
+                            {{ form.second_surname.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="documentName" class="form-label">Document name</label>
+                        {{ form.document_name }}
+                        <div class="valid-feedback">
+                            {{ form.document.name.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="documentId" class="form-label">Document ID</label>
+                        {{ form.document_id}}
+                        <div class="valid-feedback">
+                            {{ form.document_id.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="creditLimit" class="form-label">Credit limit</label>
+                        {{ form.credit_limit}}
+                        <div class="valid-feedback">
+                            {{ form.credit_limit.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="photo" class="form-label">Photo</label>
+                        {{ form.photo}}
+                        <div class="valid-feedback">
+                            {{ form.photo.errors}}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </form>
+
+            </div> <!-- end card-body-->
+        </div>
+    </div>
+</div>
+{% endblock %}
